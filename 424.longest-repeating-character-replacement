@@ -1,8 +1,29 @@
-# DSA_Repo
-DSA questions with description repository
+class Solution {
+    public int characterReplacement(String s, int k) {
+        int l = 0, r = 0, maxLength = 0, maxFreq = 0;
+        HashMap<Character, Integer> h = new HashMap<>();
 
-# 424 . longest-repeating-character-replacementdescription
+        while(r < s.length()){
+            h.put(s.charAt(r), h.getOrDefault(s.charAt(r), 0) + 1);
+            maxFreq = Math.max(maxFreq, h.get(s.charAt(r)));
 
+            if((r - l + 1) - maxFreq > k){
+                h.put(s.charAt(l), h.getOrDefault(s.charAt(l), 0) - 1);
+                l++;
+            }
+
+            if((r - l + 1) - maxFreq <= k){
+                maxLength = Math.max(maxLength, r - l + 1);
+            }
+            r++;
+        }
+
+        return maxLength;
+    }
+}
+
+// EXPLANATION
+/*
 Step 1: take four variable 
 l =0 // left pointer
 r = 0 // for right pointer
@@ -28,3 +49,4 @@ at the end of the every while loop iteration increment r by 1.
 after the while loop end return its value
 
 and return its value.
+*/
